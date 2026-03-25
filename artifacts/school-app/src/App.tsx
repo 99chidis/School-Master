@@ -8,6 +8,13 @@ import TeachersPage from "@/pages/teachers";
 import ClassesPage from "@/pages/classes";
 import GradesPage from "@/pages/grades";
 import CalendarPage from "@/pages/calendar";
+import FinancePage from "@/pages/finance";
+import AttendancePage from "@/pages/attendance";
+import MessagesPage from "@/pages/messages";
+import LibraryPage from "@/pages/library";
+import AdmissionsPage from "@/pages/admissions";
+import ReportsPage from "@/pages/reports";
+import SettingsPage from "@/pages/settings";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -22,6 +29,13 @@ function Router() {
       <Route path="/classes" component={ClassesPage} />
       <Route path="/grades" component={GradesPage} />
       <Route path="/calendar" component={CalendarPage} />
+      <Route path="/finance" component={FinancePage} />
+      <Route path="/attendance" component={AttendancePage} />
+      <Route path="/messages" component={MessagesPage} />
+      <Route path="/library" component={LibraryPage} />
+      <Route path="/admissions" component={AdmissionsPage} />
+      <Route path="/reports" component={ReportsPage} />
+      <Route path="/settings" component={SettingsPage} />
       <Route component={NotFound} />
     </Switch>
   );

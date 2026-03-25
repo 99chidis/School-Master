@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
 import { 
-  LayoutDashboard, 
-  Users, 
-  GraduationCap, 
-  BookOpen, 
-  ClipboardList, 
-  CalendarDays,
-  Search,
-  Bell,
-  Menu,
-  X
+  LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, CalendarDays,
+  Search, Bell, Menu, X, DollarSign, UserCheck, MessageSquare,
+  Library, ClipboardCheck, BarChart3, Settings
 } from 'lucide-react';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Link, useLocation } from "wouter";
 
-const NAV_ITEMS = [
-  { id: 'dashboard', href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'students', href: '/students', label: 'Students', icon: Users },
-  { id: 'teachers', href: '/teachers', label: 'Teachers', icon: GraduationCap },
-  { id: 'classes', href: '/classes', label: 'Classes', icon: BookOpen },
-  { id: 'grades', href: '/grades', label: 'Grades', icon: ClipboardList },
-  { id: 'calendar', href: '/calendar', label: 'Calendar', icon: CalendarDays },
+const NAV_GROUPS = [
+  {
+    label: "Academic",
+    items: [
+      { id: 'dashboard', href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { id: 'students', href: '/students', label: 'Students', icon: Users },
+      { id: 'teachers', href: '/teachers', label: 'Teachers', icon: GraduationCap },
+      { id: 'classes', href: '/classes', label: 'Classes', icon: BookOpen },
+      { id: 'grades', href: '/grades', label: 'Grades', icon: ClipboardList },
+      { id: 'calendar', href: '/calendar', label: 'Calendar', icon: CalendarDays },
+      { id: 'attendance', href: '/attendance', label: 'Attendance', icon: UserCheck },
+    ]
+  },
+  {
+    label: "Management",
+    items: [
+      { id: 'finance', href: '/finance', label: 'Finance', icon: DollarSign },
+      { id: 'admissions', href: '/admissions', label: 'Admissions', icon: ClipboardCheck },
+      { id: 'library', href: '/library', label: 'Library', icon: Library },
+      { id: 'messages', href: '/messages', label: 'Messages', icon: MessageSquare },
+      { id: 'reports', href: '/reports', label: 'Reports', icon: BarChart3 },
+      { id: 'settings', href: '/settings', label: 'Settings', icon: Settings },
+    ]
+  }
 ];
 
 export function AppLayout({ children, activePage, pageTitle }: { children: React.ReactNode, activePage?: string, pageTitle: string }) {
@@ -43,26 +53,33 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
           <X className="h-5 w-5" />
         </button>
       </div>
-      <nav className="flex-1 py-6 flex flex-col gap-1 overflow-y-auto px-3">
-        {NAV_ITEMS.map(item => {
-          const Icon = item.icon;
-          const isActive = location.startsWith(item.href) || activePage === item.id;
-          return (
-            <Link
-              key={item.id}
-              href={item.href}
-              onClick={() => setSidebarOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
-                isActive
-                  ? 'bg-sky-500/20 text-sky-300 shadow-inner'
-                  : 'text-slate-300 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <Icon className={`h-[18px] w-[18px] ${isActive ? 'text-sky-400' : 'text-slate-400'}`} />
-              {item.label}
-            </Link>
-          );
-        })}
+      <nav className="flex-1 py-4 flex flex-col gap-0 overflow-y-auto px-3">
+        {NAV_GROUPS.map((group, gi) => (
+          <div key={gi} className={gi > 0 ? 'mt-4 pt-4 border-t border-white/10' : ''}>
+            <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{group.label}</p>
+            <div className="flex flex-col gap-0.5">
+              {group.items.map(item => {
+                const Icon = item.icon;
+                const isActive = location.startsWith(item.href) || activePage === item.id;
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    onClick={() => setSidebarOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium ${
+                      isActive
+                        ? 'bg-sky-500/20 text-sky-300 shadow-inner'
+                        : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <Icon className={`h-[18px] w-[18px] shrink-0 ${isActive ? 'text-sky-400' : 'text-slate-400'}`} />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
       <div className="p-4 border-t border-white/10 shrink-0 bg-black/10 mt-auto">
         <div className="flex items-center gap-3">
@@ -80,8 +97,6 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
 
   return (
     <div className="flex h-screen w-full bg-slate-50 font-sans text-slate-900 overflow-hidden">
-
-      {/* Mobile overlay backdrop */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-30 bg-black/40 md:hidden"
@@ -90,7 +105,6 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
         />
       )}
 
-      {/* Sidebar — always visible on md+, slide-in drawer on mobile */}
       <div
         className={`
           fixed inset-y-0 left-0 z-40 w-[240px] bg-[#1e3a5f] text-white flex flex-col shadow-lg
@@ -102,12 +116,9 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
         <SidebarContent />
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Topbar */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-8 shrink-0 shadow-sm">
           <div className="flex items-center gap-3">
-            {/* Hamburger — mobile only */}
             <button
               onClick={() => setSidebarOpen(true)}
               className="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors"
@@ -139,7 +150,6 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
           </div>
         </header>
 
-        {/* Content Area */}
         <main className="flex-1 overflow-auto bg-slate-50/50 p-4 md:p-8">
           <div className="max-w-7xl mx-auto h-full">
             {children}
