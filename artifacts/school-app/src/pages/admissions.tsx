@@ -70,11 +70,11 @@ export default function Admissions() {
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <div className="relative">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="relative flex-1 min-w-[180px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-              <Input placeholder="Search applicants..." className="pl-9 h-9 w-56 bg-white" value={search} onChange={e => setSearch(e.target.value)} />
+              <Input placeholder="Search applicants..." className="pl-9 h-9 w-full bg-white" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
             <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
               {(['kanban', 'table'] as const).map(v => (

@@ -71,7 +71,7 @@ export default function Finance() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-slate-500 font-medium mb-0.5">{s.label}</p>
-                  <p className="text-xl font-bold text-slate-800 truncate">{s.value}</p>
+                  <p className="text-lg font-bold text-slate-800 leading-tight">{s.value}</p>
                   <p className="text-xs text-slate-400 mt-0.5">{s.sub}</p>
                 </div>
               </CardContent>
@@ -88,23 +88,25 @@ export default function Finance() {
 
           <TabsContent value="fees" className="mt-4">
             <Card className="border-slate-200 shadow-sm">
-              <CardHeader className="pb-4 border-b border-slate-100 flex flex-row items-center justify-between">
-                <CardTitle className="text-base font-semibold text-slate-800">Student Fee Status</CardTitle>
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                    <Input placeholder="Search student..." className="pl-9 h-9 w-52 bg-white" value={search} onChange={e => setSearch(e.target.value)} />
+              <CardHeader className="pb-4 border-b border-slate-100">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <CardTitle className="text-base font-semibold text-slate-800">Student Fee Status</CardTitle>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <div className="relative flex-1 min-w-[160px]">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Input placeholder="Search student..." className="pl-9 h-9 w-full bg-white" value={search} onChange={e => setSearch(e.target.value)} />
+                    </div>
+                    <Select defaultValue="all">
+                      <SelectTrigger className="w-[120px] h-9 bg-white shrink-0"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Status</SelectItem>
+                        <SelectItem value="paid">Paid</SelectItem>
+                        <SelectItem value="partial">Partial</SelectItem>
+                        <SelectItem value="overdue">Overdue</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white h-9 shrink-0"><Plus className="h-4 w-4 mr-2" />Add Record</Button>
                   </div>
-                  <Select defaultValue="all">
-                    <SelectTrigger className="w-[130px] h-9 bg-white"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="paid">Paid</SelectItem>
-                      <SelectItem value="partial">Partial</SelectItem>
-                      <SelectItem value="overdue">Overdue</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white h-9"><Plus className="h-4 w-4 mr-2" />Add Record</Button>
                 </div>
               </CardHeader>
               <CardContent className="p-0">

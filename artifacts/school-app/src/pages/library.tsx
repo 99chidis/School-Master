@@ -71,19 +71,19 @@ export default function Library() {
           {/* Book Catalog */}
           <Card className="xl:col-span-2 border-slate-200 shadow-sm">
             <CardHeader className="border-b border-slate-100 pb-4">
-              <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <CardTitle className="text-base font-semibold text-slate-800">Book Catalog</CardTitle>
-                <div className="flex items-center gap-3">
-                  <div className="relative">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="relative flex-1 min-w-[180px]">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
                       placeholder="Search title or author..."
-                      className="pl-9 h-9 w-52 bg-white"
+                      className="pl-9 h-9 w-full bg-white"
                       value={search}
                       onChange={e => setSearch(e.target.value)}
                     />
                   </div>
-                  <Button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white h-9 gap-2">
+                  <Button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white h-9 gap-2 shrink-0">
                     <Plus className="h-4 w-4" />Add Book
                   </Button>
                 </div>

@@ -148,24 +148,24 @@ export default function Reports() {
               <CardTitle className="text-sm font-semibold text-slate-800">Grade Distribution</CardTitle>
               <Button variant="ghost" size="sm" className="h-7 text-xs gap-1 text-slate-500"><Download className="h-3.5 w-3.5" /></Button>
             </CardHeader>
-            <CardContent className="pt-5 flex items-center gap-6">
-              <ResponsiveContainer width="50%" height={200}>
+            <CardContent className="pt-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+              <ResponsiveContainer width="100%" height={180} className="sm:w-1/2 sm:flex-shrink-0">
                 <PieChart>
-                  <Pie data={GRADE_DIST} dataKey="count" nameKey="grade" cx="50%" cy="50%" outerRadius={80} innerRadius={45}>
+                  <Pie data={GRADE_DIST} dataKey="count" nameKey="grade" cx="50%" cy="50%" outerRadius={75} innerRadius={40}>
                     {GRADE_DIST.map((_, i) => <Cell key={i} fill={PIE_COLORS[i]} />)}
                   </Pie>
                   <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
-              <div className="flex flex-col gap-2 flex-1">
+              <div className="flex flex-col gap-2 w-full">
                 {GRADE_DIST.map((g, i) => (
                   <div key={g.grade} className="flex items-center gap-2 text-sm">
                     <span className="h-3 w-3 rounded-full shrink-0" style={{ background: PIE_COLORS[i] }} />
-                    <span className="text-slate-600 w-8">Grade {g.grade}</span>
+                    <span className="text-slate-600 w-14 shrink-0">Grade {g.grade}</span>
                     <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${(g.count / 807) * 100}%`, background: PIE_COLORS[i] }} />
                     </div>
-                    <span className="font-medium text-slate-700 text-xs w-8 text-right">{g.count}</span>
+                    <span className="font-medium text-slate-700 text-xs w-8 text-right shrink-0">{g.count}</span>
                   </div>
                 ))}
               </div>
