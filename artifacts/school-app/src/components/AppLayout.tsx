@@ -150,12 +150,44 @@ export function AppLayout({ children, activePage, pageTitle }: { children: React
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto bg-slate-50/50 p-4 md:p-8">
+        <main className="flex-1 overflow-auto bg-slate-50/50 p-4 pb-20 md:pb-8 md:p-8">
           <div className="max-w-7xl mx-auto h-full">
             {children}
           </div>
         </main>
       </div>
+
+      {/* Bottom Mobile Nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 flex items-stretch shadow-[0_-1px_8px_rgba(0,0,0,0.08)]">
+        {[
+          { id: 'dashboard',  href: '/dashboard',  label: 'Dashboard',  icon: LayoutDashboard },
+          { id: 'students',   href: '/students',   label: 'Students',   icon: Users },
+          { id: 'grades',     href: '/grades',     label: 'Grades',     icon: ClipboardList },
+          { id: 'messages',   href: '/messages',   label: 'Messages',   icon: MessageSquare },
+          { id: 'attendance', href: '/attendance', label: 'Attend.',    icon: UserCheck },
+        ].map(item => {
+          const Icon = item.icon;
+          const isActive = location.startsWith(item.href) || activePage === item.id;
+          return (
+            <Link
+              key={item.id}
+              href={item.href}
+              className={`relative flex-1 flex flex-col items-center justify-center gap-0.5 py-2 transition-colors ${isActive ? 'text-[#1e3a5f]' : 'text-slate-400 hover:text-slate-600'}`}
+            >
+              <Icon className={`h-5 w-5 ${isActive ? 'text-[#1e3a5f]' : ''}`} />
+              <span className={`text-[10px] font-medium leading-none ${isActive ? 'text-[#1e3a5f]' : ''}`}>{item.label}</span>
+              {isActive && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-[#1e3a5f]" />}
+            </Link>
+          );
+        })}
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-slate-400 hover:text-slate-600 transition-colors"
+        >
+          <Menu className="h-5 w-5" />
+          <span className="text-[10px] font-medium leading-none">More</span>
+        </button>
+      </nav>
     </div>
   );
 }
