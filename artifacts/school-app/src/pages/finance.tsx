@@ -62,18 +62,18 @@ export default function Finance() {
             { label: 'Total Collected', value: '$994,000', sub: 'This academic year', icon: DollarSign, color: 'text-emerald-600', bg: 'bg-emerald-50' },
             { label: 'Outstanding', value: '$87,600', sub: '37 students pending', icon: AlertCircle, color: 'text-amber-600', bg: 'bg-amber-50' },
             { label: 'Monthly Budget', value: '$155,000', sub: 'Mar 2026 allocated', icon: TrendingUp, color: 'text-sky-600', bg: 'bg-sky-50' },
-            { label: 'Monthly Expenses', value: '$132,100', sub: '85.2% of budget used', icon: TrendingDown, color: 'text-rose-600', bg: 'bg-rose-50' },
+            { label: 'Monthly Expenses', value: '$132,100', sub: '85.2% of budget', icon: TrendingDown, color: 'text-rose-600', bg: 'bg-rose-50' },
           ].map((s) => (
             <Card key={s.label} className="border-slate-200 shadow-sm">
-              <CardContent className="p-5 flex items-start gap-4">
-                <div className={`h-11 w-11 rounded-xl ${s.bg} flex items-center justify-center shrink-0`}>
-                  <s.icon className={`h-5 w-5 ${s.color}`} />
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs text-slate-500 font-medium leading-tight">{s.label}</p>
+                  <div className={`h-8 w-8 rounded-lg ${s.bg} flex items-center justify-center shrink-0 ml-2`}>
+                    <s.icon className={`h-4 w-4 ${s.color}`} />
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-xs text-slate-500 font-medium mb-0.5">{s.label}</p>
-                  <p className="text-lg font-bold text-slate-800 leading-tight">{s.value}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">{s.sub}</p>
-                </div>
+                <p className="text-xl font-bold text-slate-800 leading-tight">{s.value}</p>
+                <p className="text-xs text-slate-400 mt-1">{s.sub}</p>
               </CardContent>
             </Card>
           ))}
